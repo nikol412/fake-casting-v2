@@ -1,35 +1,33 @@
-package ru.nikol.fakecasting.ui.dashboard
+package ru.nikol.fakecasting.ui.leaderboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ru.nikol.fakecasting.R
-import ru.nikol.fakecasting.databinding.FragmentDashboardBinding
+import ru.nikol.fakecasting.databinding.FragmentLeaderboardBinding
 
-class DashboardFragment : Fragment() {
+class LeaderboardFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var leaderboardViewModel: LeaderboardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val binding = DataBindingUtil.inflate<FragmentDashboardBinding>(
+        leaderboardViewModel =
+            ViewModelProviders.of(this).get(LeaderboardViewModel::class.java)
+        val binding = DataBindingUtil.inflate<FragmentLeaderboardBinding>(
             inflater,
-            R.layout.fragment_dashboard,
+            R.layout.fragment_leaderboard,
             container,
             false
         )
-        binding.viewModel = dashboardViewModel
+        binding.viewModel = leaderboardViewModel
         binding.lifecycleOwner = this
 
         return binding.root

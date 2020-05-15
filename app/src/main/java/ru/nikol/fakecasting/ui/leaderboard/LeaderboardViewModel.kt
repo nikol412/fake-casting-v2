@@ -1,9 +1,8 @@
-package ru.nikol.fakecasting.ui.dashboard
+package ru.nikol.fakecasting.ui.leaderboard
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,9 +11,9 @@ import ru.nikol.fakecasting.data.network.RetrofitInstance
 import ru.nikol.fakecasting.data.network.model.CheckLinkResponse
 
 
-class DashboardViewModel : ViewModel() {
+class LeaderboardViewModel : ViewModel() {
     val service2 = RetrofitInstance.retrofitInstance!!.create(Api::class.java)
-    var text: MutableLiveData<String> = MutableLiveData("okokokokokokokokokokok")
+    var text: MutableLiveData<String> = MutableLiveData("ok")
 
 
     fun onSendClick(){
@@ -30,7 +29,7 @@ class DashboardViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<CheckLinkResponse>, t: Throwable) {
-                text.value = "sosi"
+                Log.d("retrofit2","${t.message}")
             }
         })
     }
