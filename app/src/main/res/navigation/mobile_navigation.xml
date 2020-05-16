@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_leaderboard"
         android:name="ru.nikol.fakecasting.ui.leaderboard.LeaderboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
 
     <fragment

@@ -87,4 +87,7 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation 'jp.wasabeef:glide-transformations:4.0.0'
 
+    // okhttp logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.0'
+
 }
