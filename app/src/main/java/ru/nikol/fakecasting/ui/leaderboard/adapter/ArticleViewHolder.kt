@@ -25,7 +25,9 @@ class ArticleViewHolder (itemView: View?) : BaseViewHolder(itemView) {
 
                 headUrl?.text = it.headUrl
 
-                siteState?.text = it.siteStat.toString()
+                siteState?.text = """${"%.2f".format((it.siteStat?.times(100)))}%"""
+
+                loadIcon(iconView!!, it.icon)
             }
         }
     }
