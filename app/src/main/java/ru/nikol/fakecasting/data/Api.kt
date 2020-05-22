@@ -13,13 +13,13 @@ interface Api {
     @GET("/get_prob/url")
     fun checkLink(@Query("url") url: String?): Call<CheckLinkResponse>
 
-    @GET("/get_prob/url")
-    fun checkLinkRx(@Query("url") url: String?): Single<CheckLinkResponse>
-
     @GET("/get_prob/text")
     fun sendText(@Query("text") text:String): Call<CheckLinkResponse>
 
     @GET("/get_prob/top")
     fun getLeaderboard(@Query("page") page:Int): Single<Response<LeaderboardResponse>>
+
+    @GET("/get_prob/url")
+    fun checkLinkRx(@Query("url") url: String?): Single<Response<CheckLinkResponse>>
 
 }

@@ -29,7 +29,7 @@ class LeaderboardAdapter(var listener: OnLoadMoreListener) :
                     oldItemPosition: Int,
                     newItemPosition: Int
                 ): Boolean {
-                    return mSitesList?.get(oldItemPosition)?.headUrl == mSitesList?.get(
+                    return mSitesList?.getOrNull(oldItemPosition)?.headUrl == mSitesList?.getOrNull(
                         newItemPosition
                     )?.headUrl
                 }

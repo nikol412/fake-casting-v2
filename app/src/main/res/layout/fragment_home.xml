@@ -15,28 +15,44 @@
         tools:context=".ui.home.HomeFragment"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:text="@{viewModel.textKek}"
-            tools:text="kek"
-            android:layout_weight="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/link_text"
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"
+                android:hint="Paste url"
+                android:inputType="textEmailAddress"
+                android:text="@={viewModel.linkText}"
+                android:ellipsize="end"
+                android:paddingEnd="16dp"
+                tools:text="dgcbvcccccccccccccfdcv"
+                 />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.sendRequest()}"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> viewModel.onSendLinkClick()}"
             android:text="Check link"
-            android:layout_marginBottom="100dp"/>
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"/>
+
+        <TextView
+            android:id="@+id/title_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="45sp"
+            tools:text="s"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@={viewModel.truthCount}"/>
     </LinearLayout>
 </layout>

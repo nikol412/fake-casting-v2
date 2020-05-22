@@ -9,25 +9,35 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.support.v4.toast
 import ru.nikol.fakecasting.R
 import ru.nikol.fakecasting.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
+        viewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        val binding :FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        binding.viewModel = homeViewModel
+        val binding :FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.viewModel = viewModel
+
+
+        viewModel.eventCall.observe(viewLifecycleOwner, Observer {
+            when(it){
+                HomeViewModel.INVALID_LINK_ERROR -> {
+                    toast("try another link")
+                }
+            }
+        })
         return binding.root
     }
 }
