@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:textColor="@android:color/black"
         android:typeface="monospace"
         tools:text="1" />
 
@@ -38,6 +39,7 @@
         android:layout_weight="3"
         android:ellipsize="end"
         android:gravity="start"
+        android:textColor="@android:color/black"
         android:paddingEnd="12dp"
         android:singleLine="true"
         tools:text="bbc.ru" />
@@ -46,6 +48,7 @@
         android:id="@+id/site_state_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
         android:alpha="0.3"
         android:gravity="end"
