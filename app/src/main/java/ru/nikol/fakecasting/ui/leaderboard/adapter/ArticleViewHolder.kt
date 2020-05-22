@@ -4,30 +4,30 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import ru.nikol.fakecasting.R
-import ru.nikol.fakecasting.data.network.model.LeaderboardResponse
+import ru.nikol.fakecasting.data.network.model.Site
 
-class ArticleViewHolder (itemView: View?) : BaseViewHolder(itemView) {
-        var iconView: ImageView? = itemView?.findViewById(R.id.site_icon_leaderboard)
-        var headUrl: TextView? = itemView?.findViewById(R.id.head_url_title_leaderboard)
-        var siteState: TextView? = itemView?.findViewById(R.id.site_state_leaderboard)
-        var rowIndex:TextView? = itemView?.findViewById(R.id.row_index_leaderboard)
+class ArticleViewHolder(itemView: View?) : BaseViewHolder(itemView) {
+    var iconView: ImageView? = itemView?.findViewById(R.id.site_icon_leaderboard)
+    var headUrl: TextView? = itemView?.findViewById(R.id.head_url_title_leaderboard)
+    var siteState: TextView? = itemView?.findViewById(R.id.site_state_leaderboard)
+    var rowIndex: TextView? = itemView?.findViewById(R.id.row_index_leaderboard)
 
-        override fun clear() {
-        }
+    override fun clear() {
+    }
 
-        fun onBind(position: Int, site: LeaderboardResponse?) {
-            super.onBind(position)
+    fun onBind(position: Int, site: Site?) {
+        super.onBind(position)
 
-            site?.let {
-                loadIcon(iconView!!, it.icon)
+        site?.let {
+            loadIcon(iconView!!, it.icon)
 
-                rowIndex?.text = position.toString()
+            rowIndex?.text = position.toString()
 
-                headUrl?.text = it.headUrl
+            headUrl?.text = it.headUrl
 
-                siteState?.text = """${"%.2f".format((it.siteStat?.times(100)))}%"""
+            siteState?.text = """${"%.2f".format((it.siteStat?.times(100)))}%"""
 
-                loadIcon(iconView!!, it.icon)
-            }
+            loadIcon(iconView!!, it.icon)
         }
     }
+}

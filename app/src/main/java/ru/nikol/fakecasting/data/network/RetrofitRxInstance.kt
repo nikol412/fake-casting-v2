@@ -15,7 +15,7 @@ object RetrofitRxInstance {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(getClient())    //
+                    .client(getClient())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()

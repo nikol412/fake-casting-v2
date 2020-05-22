@@ -20,6 +20,6 @@ interface Api {
     fun sendText(@Query("text") text:String): Call<CheckLinkResponse>
 
     @GET("/get_prob/top")
-    fun getLeaderboard(@Query("page") page:Int): Call<List<LeaderboardResponse>>
+    fun getLeaderboard(@Query("page") page:Int): Single<Response<LeaderboardResponse>>
 
 }

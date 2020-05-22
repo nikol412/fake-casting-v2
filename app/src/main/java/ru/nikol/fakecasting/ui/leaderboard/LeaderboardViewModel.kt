@@ -3,23 +3,28 @@ package ru.nikol.fakecasting.ui.leaderboard
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.nikol.fakecasting.common.extension.subscribeOnBackgroundObserveOnMain
 import ru.nikol.fakecasting.data.Api
 import ru.nikol.fakecasting.data.network.RetrofitInstance
+import ru.nikol.fakecasting.data.network.RetrofitRxInstance
 import ru.nikol.fakecasting.data.network.model.CheckLinkResponse
 import ru.nikol.fakecasting.data.network.model.LeaderboardResponse
+import ru.nikol.fakecasting.data.network.model.Site
 
 
 class LeaderboardViewModel : ViewModel() {
-    val service2 = RetrofitInstance.retrofitInstance!!.create(Api::class.java)
-    var text: MutableLiveData<String> = MutableLiveData("ok")
+    val service = RetrofitRxInstance.retrofitInstance!!.create(Api::class.java)
 
     var currentPageNumber = 0
     var totalSites: Int = 0
+    var totalPages: Int = 0
 
-    var allSitesList: MutableLiveData<MutableList<LeaderboardResponse?>> =
+    var allSitesList: MutableLiveData<MutableList<Site?>> =
         MutableLiveData(mutableListOf())
 
     init {
@@ -27,48 +32,35 @@ class LeaderboardViewModel : ViewModel() {
         getPage(currentPageNumber)
     }
 
-    fun onSendClick(){
-        makeRequest("https://www.bbc.com/news/uk-52674192")
-    }
-    fun makeRequest(url:String) {
-        service2.checkLink(url).enqueue(object : Callback<CheckLinkResponse>{
-            override fun onResponse(
-                call: Call<CheckLinkResponse>,
-                response: Response<CheckLinkResponse>
-            ) {
-
-                text.value = "answer: ${response.body()?.prob}"
-            }
-
-            override fun onFailure(call: Call<CheckLinkResponse>, t: Throwable) {
-                Log.d("retrofit2","${t.message}")
-            }
-        })
-    }
-
     fun loadMore() {
         //if (currentPageNumber < lastPageNumber) {
+
+        if (currentPageNumber < totalPages-1){
             currentPageNumber++
             getPage(currentPageNumber)
+        }
+
         //}
     }
 
     fun getPage(page:Int){
-        service2.getLeaderboard(page).enqueue(object: Callback<List<LeaderboardResponse>>{
-            override fun onResponse(
-                call: Call<List<LeaderboardResponse>>,
-                response: Response<List<LeaderboardResponse>>
-            ) {
-                response.body()?.let {
-                    allSitesList.value?.addAll(it.toMutableList())
-                    allSitesList.value = allSitesList.value
-                }
-            }
+        service.getLeaderboard(page)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {  }
+            .subscribeOnBackgroundObserveOnMain()
+            .subscribe({ response ->
+                when(response.code()){
+                    200 -> {
+                        allSitesList.value?.addAll(response.body()?.sitesList!!.toMutableList())
+                        allSitesList.value = allSitesList.value
 
-            override fun onFailure(call: Call<List<LeaderboardResponse>>, t: Throwable) {
-                Log.d("retrofit2", "${t.message}")
-            }
-        })
+                        totalPages = response.body()?.totalPages ?: 0
+                    }
+                }
+            }, {
+
+            })
     }
     override fun onCleared() {
         super.onCleared()

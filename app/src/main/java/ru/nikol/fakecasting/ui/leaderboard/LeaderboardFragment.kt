@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import org.jetbrains.anko.support.v4.toast
 import ru.nikol.fakecasting.R
 import ru.nikol.fakecasting.databinding.FragmentLeaderboardBinding
 import ru.nikol.fakecasting.ui.leaderboard.adapter.LeaderboardAdapter
@@ -43,6 +45,16 @@ class LeaderboardFragment : Fragment() {
                     }
                 }
             )
+
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                leaderboardViewModel.loadMore()
+                toast("downloading")
+            }
+        }
+
+        binding.leaderboardRecyclerview.addOnScrollListener(scrollListener)
 
         with(binding.leaderboardRecyclerview) {
             layoutManager = LinearLayoutManager(context)

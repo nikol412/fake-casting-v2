@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.nikol.fakecasting.R
 import ru.nikol.fakecasting.data.network.model.LeaderboardResponse
+import ru.nikol.fakecasting.data.network.model.Site
 
 
 class LeaderboardAdapter(var listener: OnLoadMoreListener) :
     RecyclerView.Adapter<BaseViewHolder>() {
     var totalSites: Int = 0
 
-    private var mSitesList: MutableList<LeaderboardResponse?>? = mutableListOf()
+    private var mSitesList: MutableList<Site?>? = mutableListOf()
 
-    fun setItems(items: MutableList<LeaderboardResponse?>?, total: Int = 0) {
+    fun setItems(items: MutableList<Site?>?, total: Int = 0) {
         totalSites = total
 
         mSitesList?.let {
@@ -58,7 +59,7 @@ class LeaderboardAdapter(var listener: OnLoadMoreListener) :
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val site: LeaderboardResponse? = mSitesList?.getOrNull(position)
+        val site: Site? = mSitesList?.getOrNull(position)
 
         when (holder.itemViewType) {
             VIEW_TYPE_NORMAL -> {
