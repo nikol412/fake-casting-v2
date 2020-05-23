@@ -2,6 +2,7 @@
  <img src="https://github.com/nikol412/fake-casting-v2/blob/screensForMD/ic_launcher.png">
 
 ### App that identify fake news about the coronavirus
+#### download app: https://drive.google.com/file/d/12B4O38jfeejPSv6nMikaQvrmWlEmiewX/view?usp=sharing
 
 ## Technologies
 - Kotlin  
