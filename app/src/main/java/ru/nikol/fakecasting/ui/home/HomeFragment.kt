@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,7 +22,6 @@ import ru.nikol.fakecasting.ui.base.BaseVM
 class HomeFragment : BaseFragment() {
 
     private val viewModel: HomeViewModel by viewModels()
-    //private lateinit var viewModel: HomeViewModel
 
     override fun baseViewModel(): BaseVM = viewModel
 
@@ -40,7 +40,11 @@ class HomeFragment : BaseFragment() {
         viewModel.eventCall.observe(viewLifecycleOwner, Observer {
             when(it){
                 HomeViewModel.INVALID_LINK_ERROR -> {
-                    toast("try another link")
+                    alert {
+                        title = "Error"
+                        message = "Something went wrong, try another Url"
+                        okButton { }
+                    }.show()
                 }
             }
         })
