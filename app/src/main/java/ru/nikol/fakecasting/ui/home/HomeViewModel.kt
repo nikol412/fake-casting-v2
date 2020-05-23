@@ -7,17 +7,21 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.nikol.fakecasting.R
 import ru.nikol.fakecasting.common.extension.onErrorReturnNoConnectionError
 import ru.nikol.fakecasting.common.extension.subscribeOnBackgroundObserveOnMain
 import ru.nikol.fakecasting.common.live.SingleLiveEvent
 import ru.nikol.fakecasting.data.Api
 import ru.nikol.fakecasting.data.network.RetrofitRxInstance
+import ru.nikol.fakecasting.ui.base.BaseVM
 import kotlin.math.round
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseVM() {
+
     val service = RetrofitRxInstance.retrofitInstance!!.create(Api::class.java)
     val linkText: MutableLiveData<String> = MutableLiveData()
     val truthCount: MutableLiveData<String> = MutableLiveData()
@@ -25,23 +29,24 @@ class HomeViewModel : ViewModel() {
 
 
     init {
-        truthCount.value ="0% :)"
+        //truthCount.value ="0% :)"
     }
     fun onSendLinkClick(){
         if (!linkText.value.isNullOrEmpty()){
             checkLink(linkText.value!!)
+            clearInput()
         }
     }
     fun checkLink(url:String) {
+        compositeDisposable.add(
         service.checkLinkRx(url)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {  }
             .subscribeOnBackgroundObserveOnMain()
+            .doOnSubscribe { isProgressInProcess.postValue(true) }
+            .doFinally { isProgressInProcess.value = false }
             .subscribe({ response ->
                 when(response.code()){
                     200 -> {
-                        truthCount.postValue("True ${round(response.body()?.siteStat!! * 100)}%")
+                        truthCount.value = "True ${round(response.body()?.siteStat!! * 100)}%"
                     }
                     else -> {
                         eventCall.value = INVALID_LINK_ERROR
@@ -50,6 +55,7 @@ class HomeViewModel : ViewModel() {
             }, {
                 eventCall.value = INVALID_LINK_ERROR
             })
+        )
     }
 
     fun clearInput(){

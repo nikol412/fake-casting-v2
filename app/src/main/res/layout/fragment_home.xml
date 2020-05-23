@@ -8,7 +8,9 @@
             name="viewModel"
             type="ru.nikol.fakecasting.ui.home.HomeViewModel" />
     </data>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,4 +57,10 @@
             android:layout_gravity="center_horizontal"
             android:text="@={viewModel.truthCount}"/>
     </LinearLayout>
+
+    <include
+        layout="@layout/progress_layout"
+        app:viewModel="@{viewModel}"
+        tools:visibility="invisible" />
+</FrameLayout>
 </layout>
