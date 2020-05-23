@@ -3,10 +3,7 @@ package ru.nikol.fakecasting.ui.base
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import org.jetbrains.anko.okButton
-import org.jetbrains.anko.support.v4.alert
 
 abstract class BaseFragment : Fragment() {
 

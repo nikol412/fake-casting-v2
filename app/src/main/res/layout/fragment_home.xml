@@ -4,63 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="ru.nikol.fakecasting.ui.home.HomeViewModel" />
     </data>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.home.HomeFragment">
 
 
             <EditText
                 android:id="@+id/link_text"
-                android:layout_marginTop="45dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
                 android:hint="Paste url"
                 android:inputType="textEmailAddress"
-                android:text="@={viewModel.linkText}"
-                android:ellipsize="end"
                 android:paddingEnd="16dp"
-                tools:text="dgcbvcccccccccccccfdcv"
-                 />
+                android:text="@={viewModel.linkText}"
+                tools:text="dgcbvcccccccccccccfdcv" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button"
-            android:onClick="@{() -> viewModel.onSendLinkClick()}"
-            android:text="Check link"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="40dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/rounded_button"
+                android:onClick="@{() -> viewModel.onSendLinkClick()}"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Check link" />
 
-        <TextView
-            android:id="@+id/title_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textSize="45sp"
-            tools:text="s"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@={viewModel.truthCount}"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/title_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="@={viewModel.truthCount}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="45sp"
+                tools:text="s" />
+        </LinearLayout>
 
-    <include
-        layout="@layout/progress_layout"
-        app:viewModel="@{viewModel}"
-        tools:visibility="invisible" />
-</FrameLayout>
+        <include
+            layout="@layout/progress_layout"
+            app:viewModel="@{viewModel}"
+            tools:visibility="invisible" />
+    </FrameLayout>
 </layout>

@@ -1,19 +1,12 @@
 package ru.nikol.fakecasting.ui.leaderboard
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.nikol.fakecasting.common.extension.subscribeOnBackgroundObserveOnMain
 import ru.nikol.fakecasting.data.Api
-import ru.nikol.fakecasting.data.network.RetrofitInstance
 import ru.nikol.fakecasting.data.network.RetrofitRxInstance
-import ru.nikol.fakecasting.data.network.model.CheckLinkResponse
-import ru.nikol.fakecasting.data.network.model.LeaderboardResponse
 import ru.nikol.fakecasting.data.network.model.Site
 
 
@@ -35,7 +28,7 @@ class LeaderboardViewModel : ViewModel() {
     fun loadMore() {
         //if (currentPageNumber < lastPageNumber) {
 
-        if (currentPageNumber < totalPages-1){
+        if (currentPageNumber < totalPages - 1) {
             currentPageNumber++
             getPage(currentPageNumber)
         }
@@ -43,14 +36,14 @@ class LeaderboardViewModel : ViewModel() {
         //}
     }
 
-    fun getPage(page:Int){
+    fun getPage(page: Int) {
         service.getLeaderboard(page)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {  }
+            .doOnSubscribe { }
             .subscribeOnBackgroundObserveOnMain()
             .subscribe({ response ->
-                when(response.code()){
+                when (response.code()) {
                     200 -> {
                         allSitesList.value?.addAll(response.body()?.sitesList!!.toMutableList())
                         allSitesList.value = allSitesList.value
@@ -62,6 +55,7 @@ class LeaderboardViewModel : ViewModel() {
 
             })
     }
+
     override fun onCleared() {
         super.onCleared()
     }
