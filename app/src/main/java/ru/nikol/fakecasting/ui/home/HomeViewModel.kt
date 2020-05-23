@@ -17,7 +17,7 @@ class HomeViewModel : BaseVM() {
 
 
     init {
-        //truthCount.value ="0% :)"
+        truthCount.value ="0%"
     }
 
     fun onSendLinkClick() {
@@ -49,7 +49,7 @@ class HomeViewModel : BaseVM() {
     }
 
     fun clearInput() {
-        truthCount.value = ""
+        truthCount.value = "0%"
         linkText.value = ""
     }
 

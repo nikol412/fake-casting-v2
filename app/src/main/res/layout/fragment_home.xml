@@ -20,6 +20,17 @@
             android:orientation="vertical"
             tools:context=".ui.home.HomeFragment">
 
+            <TextView
+                android:id="@+id/title_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@={viewModel.truthCount}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="45sp"
+                tools:text="s" />
 
             <EditText
                 android:id="@+id/link_text"
@@ -29,6 +40,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="45dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_drawable"
+                android:padding="10dp"
                 android:ellipsize="end"
                 android:hint="Paste url"
                 android:inputType="textEmailAddress"
@@ -48,16 +61,6 @@
                 android:paddingEnd="10dp"
                 android:text="Check link" />
 
-            <TextView
-                android:id="@+id/title_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="@={viewModel.truthCount}"
-                android:textColor="@color/colorPrimary"
-                android:textSize="45sp"
-                tools:text="s" />
         </LinearLayout>
 
         <include
