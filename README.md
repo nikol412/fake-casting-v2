@@ -5,7 +5,7 @@
 
 ## Technologies
 - Kotlin  
-- Retrofit2б/Okhttp
+- Retrofit2/Okhttp
 - RxJava2
 
 ## App:
