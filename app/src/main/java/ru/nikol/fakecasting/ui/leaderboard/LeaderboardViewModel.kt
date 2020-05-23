@@ -34,7 +34,8 @@ class LeaderboardViewModel : BaseVM() {
     fun getPage(page: Int) {
         service.getLeaderboard(page)
             .subscribeOnBackgroundObserveOnMain()
-            .doOnSubscribe { }
+            .doOnSubscribe { isProgressInProcess.value = page == 1 }
+            .doFinally { isProgressInProcess.value = false }
             .subscribe({ response ->
                 when (response.code()) {
                     200 -> {
