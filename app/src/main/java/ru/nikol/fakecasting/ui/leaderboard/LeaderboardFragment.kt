@@ -5,35 +5,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.jetbrains.anko.support.v4.toast
 import ru.nikol.fakecasting.R
 import ru.nikol.fakecasting.databinding.FragmentLeaderboardBinding
+import ru.nikol.fakecasting.ui.base.BaseFragment
+import ru.nikol.fakecasting.ui.base.BaseVM
 import ru.nikol.fakecasting.ui.leaderboard.adapter.LeaderboardAdapter
 
-class LeaderboardFragment : Fragment() {
+class LeaderboardFragment : BaseFragment() {
 
-    private lateinit var leaderboardViewModel: LeaderboardViewModel
     private lateinit var leaderboardAdapter: LeaderboardAdapter
+
+    private val viewModel: LeaderboardViewModel by viewModels()
+
+    override fun baseViewModel(): BaseVM = viewModel
+
+    override fun layoutRes(): Int = R.layout.fragment_leaderboard
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        leaderboardViewModel =
-            ViewModelProviders.of(this).get(LeaderboardViewModel::class.java)
+
         val binding = DataBindingUtil.inflate<FragmentLeaderboardBinding>(
             inflater,
             R.layout.fragment_leaderboard,
             container,
             false
         )
-        binding.viewModel = leaderboardViewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         leaderboardAdapter =
@@ -41,7 +45,7 @@ class LeaderboardFragment : Fragment() {
                 object :
                     LeaderboardAdapter.OnLoadMoreListener {
                     override fun loadMore() {
-                        leaderboardViewModel.loadMore()
+                        viewModel.loadMore()
                     }
                 }
             )
@@ -49,8 +53,7 @@ class LeaderboardFragment : Fragment() {
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                leaderboardViewModel.loadMore()
-                toast("downloading")
+                viewModel.loadMore()
             }
         }
 
@@ -61,9 +64,10 @@ class LeaderboardFragment : Fragment() {
             adapter = leaderboardAdapter
         }
 
-        leaderboardViewModel.allSitesList.observe(viewLifecycleOwner, Observer {
+        viewModel.allSitesList.observe(viewLifecycleOwner, Observer {
             leaderboardAdapter.setItems(
-                leaderboardViewModel.allSitesList.value?.toMutableList())
+                viewModel.allSitesList.value?.toMutableList()
+            )
         })
 
         return binding.root

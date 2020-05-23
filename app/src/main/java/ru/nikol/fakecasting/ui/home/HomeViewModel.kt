@@ -36,7 +36,7 @@ class HomeViewModel : BaseVM() {
                 .subscribe({ response ->
                     when (response.code()) {
                         200 -> {
-                            truthCount.value = "True ${round(response.body()?.siteStat!! * 100)}%"
+                            truthCount.value = "True ${round(response.body()?.siteStat!! * 100).toInt()}%"
                         }
                         else -> {
                             eventCall.value = INVALID_LINK_ERROR
