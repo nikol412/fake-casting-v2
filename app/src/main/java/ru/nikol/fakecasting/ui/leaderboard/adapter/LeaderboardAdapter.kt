@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.nikol.fakecasting.R
-import ru.nikol.fakecasting.data.network.model.LeaderboardResponse
 import ru.nikol.fakecasting.data.network.model.Site
 
 

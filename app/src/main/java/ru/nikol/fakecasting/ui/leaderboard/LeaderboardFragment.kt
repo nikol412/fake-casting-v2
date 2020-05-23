@@ -19,7 +19,7 @@ class LeaderboardFragment : BaseFragment() {
 
     private lateinit var leaderboardAdapter: LeaderboardAdapter
 
-    private val viewModel: LeaderboardViewModel by viewModels()
+    private val viewModel: LeaderboardVM by viewModels()
 
     override fun baseViewModel(): BaseVM = viewModel
 

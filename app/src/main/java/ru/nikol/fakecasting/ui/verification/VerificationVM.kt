@@ -1,4 +1,4 @@
-package ru.nikol.fakecasting.ui.home
+package ru.nikol.fakecasting.ui.verification
 
 import androidx.lifecycle.MutableLiveData
 import ru.nikol.fakecasting.common.extension.subscribeOnBackgroundObserveOnMain
@@ -8,7 +8,7 @@ import ru.nikol.fakecasting.data.network.RetrofitRxInstance
 import ru.nikol.fakecasting.ui.base.BaseVM
 import kotlin.math.round
 
-class HomeViewModel : BaseVM() {
+class VerificationVM : BaseVM() {
 
     val service = RetrofitRxInstance.retrofitInstance!!.create(Api::class.java)
     val linkText: MutableLiveData<String> = MutableLiveData()
@@ -17,7 +17,7 @@ class HomeViewModel : BaseVM() {
 
 
     init {
-        truthCount.value ="0%"
+        truthCount.value = "0%"
     }
 
     fun onSendLinkClick() {
@@ -36,7 +36,8 @@ class HomeViewModel : BaseVM() {
                 .subscribe({ response ->
                     when (response.code()) {
                         200 -> {
-                            truthCount.value = "True ${round(response.body()?.siteStat!! * 100).toInt()}%"
+                            truthCount.value =
+                                "True ${round(response.body()?.siteStat!! * 100).toInt()}%"
                         }
                         else -> {
                             eventCall.value = INVALID_LINK_ERROR

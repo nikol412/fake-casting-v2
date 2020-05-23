@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Fake Casting</string>
-    <string name="title_home">Home</string>
+    <string name="title_verification">Verification</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="persentage">%1$s %</string>
     <string name="top">Top</string>
+    <string name="verification">Verification</string>
     <string name="try_another_url_message">Something went wrong, try another url</string>
     <string name="error">Error</string>
 </resources>

@@ -1,8 +1,6 @@
 package ru.nikol.fakecasting.ui.leaderboard
 
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ru.nikol.fakecasting.common.extension.subscribeOnBackgroundObserveOnMain
 import ru.nikol.fakecasting.data.Api
 import ru.nikol.fakecasting.data.network.RetrofitRxInstance
@@ -10,7 +8,7 @@ import ru.nikol.fakecasting.data.network.model.Site
 import ru.nikol.fakecasting.ui.base.BaseVM
 
 
-class LeaderboardViewModel : BaseVM() {
+class LeaderboardVM : BaseVM() {
     val service = RetrofitRxInstance.retrofitInstance!!.create(Api::class.java)
 
     var currentPageNumber = 0

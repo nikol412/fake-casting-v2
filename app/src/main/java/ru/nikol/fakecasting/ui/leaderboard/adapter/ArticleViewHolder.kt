@@ -21,7 +21,7 @@ class ArticleViewHolder(itemView: View?) : BaseViewHolder(itemView) {
         site?.let {
             loadIcon(iconView!!, it.icon)
 
-            rowIndex?.text = (position+1).toString()
+            rowIndex?.text = (position + 1).toString()
 
             headUrl?.text = it.headUrl
 
